@@ -1,0 +1,28 @@
+<div class="container">
+
+
+    @if (selectedUserId) {
+    <h2>Posts by User ID: {{ selectedUserId }}</h2>
+    }
+
+    @if (posts.length > 0) {
+    <div class="row">
+        @for ( post of posts;track post.id) {
+        <div class="col-md-4">
+
+            <p>{{post.title}}</p>
+            <!-- <app-post-item [post]="post" [username]="getUsername(post.userId)"></app-post-item> -->
+        </div>
+        }
+    </div>
+    }
+
+    @if (selectedUserId && posts.length === 0) {
+    <p>No posts available for this user.</p>
+    }
+
+    @if (!selectedUserId) {
+    <p>Please select a user to see their posts.</p>
+    }
+
+</div>
