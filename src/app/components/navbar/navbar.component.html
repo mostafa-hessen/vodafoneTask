@@ -1,25 +1,37 @@
 <nav class="navbar navbar-expand-lg navbar shadow-sm py-3">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">Modern Navbar</a>
+    <a routerLink="posts" class="navbar-brand fw-bold" href="#">Modern Navbar</a>
 
-    <div class="dropdown m-4">
-      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-        Choose User
-      </button>
-      <ul class="dropdown-menu pt-0" aria-labelledby="dropdownMenuButton1">
-        <input type="text" class="form-control border-0 border-bottom shadow-none mb-2" placeholder="Search..." oninput="handleInput()">
-        
-          @for( item of users;track item.id) {
-            <li>
-              <a class="dropdown-item" 
-                 [class.active-user]="isSelected(item.id)" 
-                 (click)="onSelectUser(item)">
-                {{ item.username }}
-              </a>
-            </li>
-          }
-        
-      </ul>
-    </div>
+
+    
+    @if(showDropdown){
+
+      <div class="dropdown m-4">
+          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Choose User
+          </button>
+          <ul class="dropdown-menu pt-0" aria-labelledby="dropdownMenuButton1">
+            <input type="text" class="form-control border-0 border-bottom shadow-none mb-2" placeholder="Search..." oninput="handleInput()">
+            
+              @for( item of users;track item.id) {
+                <li>
+                  <a class="dropdown-item" 
+                     [class.active-user]="isSelected(item.id)" 
+                     (click)="onSelectUser(item)">
+                    {{ item.username }}
+                  </a>
+                </li>
+              }
+            
+          </ul>
+        </div>
+    }
+    @else{
+      <a routerLink="posts"
+      class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+      href="">Go To home</a>
+    }
+
+   
   </div>
 </nav>

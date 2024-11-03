@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../models/user';
 import { NgClass } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [NgClass],
+  imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -14,16 +15,18 @@ export class NavbarComponent {
  currentUser!:User
  users:User[]=[]
  loading:boolean=true
+ showDropdown=true
+
 
 
 
 
 //  firstly  dependency injection for api service 
-  constructor(private userService :ApiService){}
+  constructor(private userService :ApiService,private router :Router){}
 
 
-// once app load for first time we load all users from api 
   ngOnInit(): void {
+    // once app load for first time we load all users from api 
     this.userService.getUsers().subscribe(
       (data: User[]) => {
 
@@ -36,6 +39,13 @@ export class NavbarComponent {
         // this.loading = false; // Set loading to false in case of error
       }
     );
+
+
+     // know wich page we stand on 
+
+     this.router.events.subscribe(() => {
+      this.showDropdown = !this.router.url.includes('/postComment/');
+    });
   }
 
 
@@ -52,4 +62,7 @@ export class NavbarComponent {
   isSelected(userId: number): boolean {
     return this.currentUser?.id === userId; // تحقق مما إذا كان هذا هو المستخدم المحدد
   }
+
+
+ 
 }

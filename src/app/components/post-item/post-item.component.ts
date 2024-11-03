@@ -4,7 +4,7 @@ import { User } from '../../models/user';
 import { Posts } from '../../models/posts';
 import { LimitTextPipe } from '../../shared/limit-text.pipe';
 import { CommentComponent } from '../comment/comment.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-item',
@@ -15,13 +15,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PostItemComponent {
   currentUser:string=''
+  comments:Comment[]=[]
 
   @Input() post:any
   @Input() userName:string=''
 
  
 
-  constructor(private route:ActivatedRoute){
+  constructor(private route:Router){
     
 
   }
@@ -29,7 +30,7 @@ export class PostItemComponent {
   
 
   getCommentsPage(postId:number){
-   
+    this.route.navigate(['/postComment', postId ]);
   }
  
 
