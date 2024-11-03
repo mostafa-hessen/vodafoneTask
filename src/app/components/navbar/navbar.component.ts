@@ -11,20 +11,20 @@ import { NgClass } from '@angular/common';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
- currentUser:any
- users:any
-private loading:any
+ currentUser!:User
+ users:User[]=[]
+ loading:boolean=true
 
 
 
 
 //  firstly  dependency injection for api service 
-  constructor(private userServics:ApiService){}
+  constructor(private userService :ApiService){}
 
 
 // once app load for first time we load all users from api 
   ngOnInit(): void {
-    this.userServics.getUsers().subscribe(
+    this.userService.getUsers().subscribe(
       (data: User[]) => {
 
         
@@ -40,9 +40,9 @@ private loading:any
 
 
   // when select user from  navbar we send to service to load rela 
-  onSelectUser(userId: number): void {
-    this.currentUser = userId; // تحديث المستخدم المحدد
-  this.userServics.selectUser(userId)
+  onSelectUser(currentUser: User): void {
+    this.currentUser = currentUser; // تحديث المستخدم المحدد
+    this.userService.selectUser(currentUser)
   
     
   }
@@ -50,6 +50,6 @@ private loading:any
 
   // just give as a signture which usre we choose in selectore
   isSelected(userId: number): boolean {
-    return this.currentUser === userId; // تحقق مما إذا كان هذا هو المستخدم المحدد
+    return this.currentUser?.id === userId; // تحقق مما إذا كان هذا هو المستخدم المحدد
   }
 }

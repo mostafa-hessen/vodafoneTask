@@ -1,28 +1,29 @@
-<div class="container">
+<div class="container mt-3 mb-3 py-5">
 
 
-    @if (selectedUserId) {
-    <h2>Posts by User ID: {{ selectedUserId }}</h2>
+    @if (selectedUser) {
+    <h2>Posts by User : {{ selectedUser.username }}</h2>
     }
+
+
 
     @if (posts.length > 0) {
     <div class="row">
         @for ( post of posts;track post.id) {
-        <div class="col-md-4">
-
-            <p>{{post.title}}</p>
-            <!-- <app-post-item [post]="post" [username]="getUsername(post.userId)"></app-post-item> -->
+        <div class="col-12 col-md-6 col-lg-4">
+            <app-post-item [post]="post" [userName]='selectedUser.username' ></app-post-item>
         </div>
         }
     </div>
     }
 
-    @if (selectedUserId && posts.length === 0) {
+    @if (selectedUser && posts.length === 0|| loading) {
     <p>No posts available for this user.</p>
+    
     }
 
-    @if (!selectedUserId) {
-    <p>Please select a user to see their posts.</p>
+    @if (!selectedUser) {
+    <p class="no-posts">Please select a user to see their posts.</p>
     }
 
 </div>
