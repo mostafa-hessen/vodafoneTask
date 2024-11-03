@@ -13,15 +13,4 @@ export class CommentItemComponent {
 
   @Input()commentItem: any
 
-
-  ngOnInit(){
-    console.log(this.commentItem);
-    
-  }
-
-  ngOnChanges(){
-    console.log(this.commentItem);
-
-  }
-
 }
